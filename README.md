@@ -1,2 +1,2 @@
 # MCXLab
-Monte-Carlo Simulation using MCXlab
+Pulse Oxymetry Simulation using MCXlab
