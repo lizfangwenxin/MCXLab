@@ -51,5 +51,5 @@ cfg.tstep=5e-10;
 [~,detpt]=mcxlabcl(cfg);
 
 % One layer example
-
+one_layer(hbt, oxy_sim_all)
 % Two layer example
