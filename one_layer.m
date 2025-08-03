@@ -1,4 +1,4 @@
-% One layer model example
+% One layer model 
 
 function one_layer(hbt, SD, oxy_sim_all)
     [mu_a, mu_a_s, mu_a_d] = mu_a_calculation(hbt, oxy_sim_all);
@@ -9,7 +9,7 @@ function one_layer(hbt, SD, oxy_sim_all)
     r = SD;
     dmua = mu_a_s - mu_a_d;
     
-    cfg.nphoton=5e5;
+    cfg.nphoton=5e5; %increase the photon number
     cfg.vol=uint8(ones(100,100,100));
     %cfg.vol(:,:,10:end)=2;    % add an inclusion
     cfg.issrcfrom0=1;
@@ -26,7 +26,7 @@ function one_layer(hbt, SD, oxy_sim_all)
     cfg.tstep=5e-10;    
     cfg.prop=[0 0 1 1
         mu_a(1,1) 11.1852 0.9 1.4];
-    [~,detpt]=mcxlabcl(cfg);
+    [~,detpt]=mcxlabcl(cfg); %change it to mxclab when on non-ios system
     
     for i = 1:5
     %Iterating over mu_a
@@ -74,4 +74,5 @@ function one_layer(hbt, SD, oxy_sim_all)
     hold on;
     plot(oxy_sim_all,L_ratio_analytical, "LineStyle","-.")
     hold off;
+    legend('Measured', 'Direct', 'Analytical')
 end
