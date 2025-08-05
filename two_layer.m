@@ -62,14 +62,16 @@ function two_layer(hbt, SD, thickness, oxy_sim_all)
         L_850_measured(:,i) = L';
         
     end
-    
+
+    t=tiledlayout(1,2)
+    % first-layer prediction
     for i = 1:5
         I_780_d(i) = sum(exp(-mu_a_d(1,i) * detpt.ppath(:,1)-mu_a(1,i) * detpt.ppath(:,2)));
         I_780_s(i) = sum(exp(-mu_a_s(1,i) * detpt.ppath(:,1)-mu_a(1,i) * detpt.ppath(:,2)));
         I_850_d(i) = sum(exp(-mu_a_d(2,i) * detpt.ppath(:,1)-mu_a(1,i) * detpt.ppath(:,2)));
         I_850_s(i) = sum(exp(-mu_a_s(2,i) * detpt.ppath(:,1)-mu_a(1,i) * detpt.ppath(:,2)));
     end
-    
+
     dOD_780 = log(I_780_d ./ I_780_s);
     dOD_850 = log(I_850_d ./ I_850_s);
         
@@ -79,10 +81,36 @@ function two_layer(hbt, SD, thickness, oxy_sim_all)
     L_ratio_measured = dOD_ratio .* mul;
     
     L_ratio_direct= L_780_measured./L_850_measured;
-        
+    
+    nexttile;
     plot(oxy_sim_all,L_ratio_direct, "LineStyle","-")
     hold on;
     plot(oxy_sim_all,L_ratio_measured,"LineStyle","-.")
     hold off;
-    legend('Layer 1: direct', 'Layer 2: direct', 'Layer 1: calculation based on cardiac circle')
+    legend('Layer 1: direct', 'Layer 2: direct', 'Layer 2: Measured')
+
+    % second-layer prediction
+    for i = 1:5
+        I_780_d(i) = sum(exp(-mu_a(1,i) * detpt.ppath(:,1)-mu_a_d(1,i) * detpt.ppath(:,2)));
+        I_780_s(i) = sum(exp(-mu_a(1,i) * detpt.ppath(:,1)-mu_a_s(1,i) * detpt.ppath(:,2)));
+        I_850_d(i) = sum(exp(-mu_a(2,i) * detpt.ppath(:,1)-mu_a_d(1,i) * detpt.ppath(:,2)));
+        I_850_s(i) = sum(exp(-mu_a(2,i) * detpt.ppath(:,1)-mu_a_s(1,i) * detpt.ppath(:,2)));
+    end
+    
+
+    dOD_780 = log(I_780_d ./ I_780_s);
+    dOD_850 = log(I_850_d ./ I_850_s);
+        
+    dOD_ratio = dOD_780 ./ dOD_850;
+    mul = dmua(2,:) ./ dmua(1,:);
+    
+    L_ratio_measured = dOD_ratio .* mul;
+    
+    L_ratio_direct= L_780_measured./L_850_measured;
+    nexttile;
+    plot(oxy_sim_all,L_ratio_direct, "LineStyle","-")
+    hold on;
+    plot(oxy_sim_all,L_ratio_measured,"LineStyle","-.")
+    hold off;
+    legend('Layer 1: direct', 'Layer 2: direct', 'Layer 2: Measured')
 end
