@@ -23,6 +23,7 @@ oxy_sim_all = [0.2 0.4 0.6 0.8 1]; % multiple oxygen levels
 
 %% ==== Figure 4 ====
 % one-layer model example, multi-SD results
+figure(1); 
 t=tiledlayout(2,2);
 for i = 1:length(SDs)
     sd = SDs(i);
@@ -34,10 +35,9 @@ lgd.Layout.Tile = 'north';
 
 %% ==== Figure 6 ====
 % two-layer model example, multi-thickness results
-t=tiledlayout(2,3);
 for i = 1:length(L1s)
     L1 = L1s(i);
-    nexttile;
+    figure(1+i); 
     two_layer(hbt, SD, L1, oxy_sim_all)
 end
 

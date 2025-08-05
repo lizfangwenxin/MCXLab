@@ -50,10 +50,10 @@ function one_layer(hbt, SD, oxy_sim_all)
     end
     
     for i = 1:5
-        I_780_d(i) = sum(exp(-mu_a_d(1,i) * detpt.ppath(:,1)));
-        I_780_s(i) = sum(exp(-mu_a_s(1,i) * detpt.ppath(:,1)));
-        I_850_d(i) = sum(exp(-mu_a_d(2,i) * detpt.ppath(:,1)));
-        I_850_s(i) = sum(exp(-mu_a_s(2,i) * detpt.ppath(:,1)));
+        I_780_d(i) = sum(exp(-mu_a_d(1,i) * detpt.ppath));
+        I_780_s(i) = sum(exp(-mu_a_s(1,i) * detpt.ppath));
+        I_850_d(i) = sum(exp(-mu_a_d(2,i) * detpt.ppath));
+        I_850_s(i) = sum(exp(-mu_a_s(2,i) * detpt.ppath));
     end
     
     dOD_780 = log(I_780_d ./ I_780_s);
@@ -74,5 +74,5 @@ function one_layer(hbt, SD, oxy_sim_all)
     hold on;
     plot(oxy_sim_all,L_ratio_analytical, "LineStyle","-.")
     hold off;
-    legend('Measured', 'Direct', 'Analytical')
+    title([' SD = ' num2str(SD) 'mm, HbT =' num2str(hbt) 'mM'])
 end
